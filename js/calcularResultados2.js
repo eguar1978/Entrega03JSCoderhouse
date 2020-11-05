@@ -133,66 +133,70 @@ for(let i = 0; i < JSON.parse(localStorage.getItem('equipos')).length; i++){
 
 }
 
-$(window).resize(function(){
+let miTabla = `<table id="table_id" class="table display">
+                 <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>PJ</th>
+                        <th>PG</th>
+                        <th>PE</th>
+                        <th>PP</th>
+                        <th>GF</th>
+                        <th>GC</th>
+                        <th>DIF</th>
+                        <th>Puntos</th>
+                    </tr>
+                 </thead>
+                 <tbody>`;
 
-        $("#table_id").removeAttr("style");
+for (let i = 0; i < data.length; i++) {
 
-});
+    miTabla += "<tr><td>" + data[i].nombre + "</td>"
+    miTabla += "<td>" + data[i].pj + "</td>"
+    miTabla += "<td>" + data[i].pg + "</td>"
+    miTabla += "<td>" + data[i].pe + "</td>"
+    miTabla += "<td>" + data[i].pp + "</td>"
+    miTabla += "<td>" + data[i].gf + "</td>"
+    miTabla += "<td>" + data[i].gc + "</td>"
+    miTabla += "<td>" + data[i].dif + "</td>"
+    miTabla += "<td>" + data[i].puntos + "</td></tr>"
+
+}
+
+miTabla += "</tbody></table>"
+
+$( ".nacional" ).append( miTabla );
 
 
-        $('#table_id').DataTable( {
-            "searching": false,
-            "lengthChange": false,
-            "paging": false,
-            "buttons": [],
-            "data": data,
-            "bInfo": false,
-            "columns": [
-                { data: "nombre" },
-                { data: "pj" },
-                { data: "pg" },
-                { data: "pe" },
-                { data: "pp" },
-                { data: "gf" },
-                { data: "gc" },
-                { data: "dif" },
-                { data: "puntos" }
-            ],
+/*
 
-            "order": [
-                [ 8, 'desc' ],
-                [ 7, 'desc' ],
-                [ 5, 'desc' ],
-                [ 0, 'asc' ]
-            ],
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
-             ]
-        } );
+$('#table_id').DataTable( {
+    "searching": false,
+    "lengthChange": false,
+    "paging": false,
+    "buttons": [],
+    "data": data,
+    "bInfo": false,
+    "columns": [
+        { data: "nombre" },
+        { data: "pj" },
+        { data: "pg" },
+        { data: "pe" },
+        { data: "pp" },
+        { data: "gf" },
+        { data: "gc" },
+        { data: "dif" },
+        { data: "puntos" }
+    ],
+    "order": [
+        [ 8, 'desc' ],
+        [ 7, 'desc' ],
+        [ 5, 'desc' ],
+        [ 0, 'asc' ]
+    ],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
+     ]
+} );
 
-        /*
-        
-                    "columnDefs": [
-                {
-                    "targets": [ 2 ],
-                    "visible": false,
-                },
-                {
-                    "targets": [ 3 ],
-                    "visible": false
-                },
-                {
-                    "targets": [ 4 ],
-                    "visible": false,
-                },
-                {
-                    "targets": [ 5 ],
-                    "visible": false
-                },
-                {
-                    "targets": [ 6 ],
-                    "visible": false
-                }
-            ],
-
-        */
+*/

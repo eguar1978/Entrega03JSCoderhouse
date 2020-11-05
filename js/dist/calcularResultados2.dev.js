@@ -100,63 +100,51 @@ for (var _i3 = 0; _i3 < JSON.parse(localStorage.getItem('equipos')).length; _i3+
   }
 }
 
-$(window).resize(function () {
-  $("#table_id").removeAttr("style");
-});
-$('#table_id').DataTable({
-  "searching": false,
-  "lengthChange": false,
-  "paging": false,
-  "buttons": [],
-  "data": data,
-  "bInfo": false,
-  "columns": [{
-    data: "nombre"
-  }, {
-    data: "pj"
-  }, {
-    data: "pg"
-  }, {
-    data: "pe"
-  }, {
-    data: "pp"
-  }, {
-    data: "gf"
-  }, {
-    data: "gc"
-  }, {
-    data: "dif"
-  }, {
-    data: "puntos"
-  }],
-  "order": [[8, 'desc'], [7, 'desc'], [5, 'desc'], [0, 'asc']],
-  "aoColumnDefs": [{
-    'bSortable': false,
-    'aTargets': [8, 7, 6, 5, 4, 3, 2, 1, 0]
-  }]
-});
+var miTabla = "<table id=\"table_id\" class=\"table display\">\n                 <thead>\n                    <tr>\n                        <th>Nombre</th>\n                        <th>PJ</th>\n                        <th>PG</th>\n                        <th>PE</th>\n                        <th>PP</th>\n                        <th>GF</th>\n                        <th>GC</th>\n                        <th>DIF</th>\n                        <th>Puntos</th>\n                    </tr>\n                 </thead>\n                 <tbody>";
+
+for (var _i4 = 0; _i4 < data.length; _i4++) {
+  miTabla += "<tr><td>" + data[_i4].nombre + "</td>";
+  miTabla += "<td>" + data[_i4].pj + "</td>";
+  miTabla += "<td>" + data[_i4].pg + "</td>";
+  miTabla += "<td>" + data[_i4].pe + "</td>";
+  miTabla += "<td>" + data[_i4].pp + "</td>";
+  miTabla += "<td>" + data[_i4].gf + "</td>";
+  miTabla += "<td>" + data[_i4].gc + "</td>";
+  miTabla += "<td>" + data[_i4].dif + "</td>";
+  miTabla += "<td>" + data[_i4].puntos + "</td></tr>";
+}
+
+miTabla += "</tbody></table>";
+$(".nacional").append(miTabla);
 /*
 
-            "columnDefs": [
-        {
-            "targets": [ 2 ],
-            "visible": false,
-        },
-        {
-            "targets": [ 3 ],
-            "visible": false
-        },
-        {
-            "targets": [ 4 ],
-            "visible": false,
-        },
-        {
-            "targets": [ 5 ],
-            "visible": false
-        },
-        {
-            "targets": [ 6 ],
-            "visible": false
-        }
+$('#table_id').DataTable( {
+    "searching": false,
+    "lengthChange": false,
+    "paging": false,
+    "buttons": [],
+    "data": data,
+    "bInfo": false,
+    "columns": [
+        { data: "nombre" },
+        { data: "pj" },
+        { data: "pg" },
+        { data: "pe" },
+        { data: "pp" },
+        { data: "gf" },
+        { data: "gc" },
+        { data: "dif" },
+        { data: "puntos" }
     ],
-  */
+    "order": [
+        [ 8, 'desc' ],
+        [ 7, 'desc' ],
+        [ 5, 'desc' ],
+        [ 0, 'asc' ]
+    ],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
+     ]
+} );
+
+*/
