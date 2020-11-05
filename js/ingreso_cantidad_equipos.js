@@ -57,16 +57,26 @@ if (localStorage.getItem("equipos") === null) {
             <input type="text" class="form-control" name="${arrayEquipos[i]}" id="${arrayEquipos[i]}">
             </div>`;
 
-
-
         }else{
+            
             
             textEquipo = textEquipo + `
             <div class="form-group col-12">
             <label>Equipo ${[i+1]}</label>
             <input type="text" class="form-control is-valid" name="${arrayEquipos[i]}" id="${arrayEquipos[i]}" value="${localStorage.getItem(arrayEquipos[i])}" disabled>
             </div>`;
-            //$.notify("Prueba... de Exito");
+
+            let ii = i+1;
+
+            if(localStorage.getItem("mostrarNotificacion"+i) == null){
+                alertify.set('notifier','delay', 2);
+                alertify.set('notifier','position', 'bottom-right');
+                alertify.success("Equipo " + ii + ": " + localStorage.getItem(arrayEquipos[i]));
+
+                localStorage.setItem("mostrarNotificacion"+i,"1")
+            }
+
+            
 
         }
 
@@ -109,6 +119,13 @@ if (localStorage.getItem("equipos") === null) {
                     let element = document.getElementById('equipo'+[i]);
 
                     element.classList.add('is-invalid');
+
+
+                        alertify.set('notifier','delay', 2);
+                        alertify.set('notifier','position', 'bottom-right');
+                        alertify.error("El equipo : " + document.getElementById('equipo'+[i]).value.toUpperCase() + " ya fue ingresado.");
+
+
                 }
                 
             }        
@@ -143,8 +160,6 @@ La funcion se encarga de crear los INPUT para ingresar los nombres de los equipo
                 </div>`;
     
             equipoJson[i] = "equipo"+[i];
-            
-
         }
 
 
@@ -202,140 +217,54 @@ La funcion se encarga de crear los INPUT para ingresar los nombres de los equipo
     
     }
 
-    //console.log(JSON.parse(localStorage.getItem('tablaEquipos0')));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    localStorage.setItem("actualizaFixture","0");
 
 /*
-function Equipo(nombre, id){
 
-    this.nombre     = nombre;
-    this.id         = id;
+SI SE SELECCIONO LA CANTIDAD DE EQUIPOS SE COMPRUEBA
+CUANTOS EQUIPOS TIENEN NOMBRE PARA CALCULAR EL PORCENTAJE DE LA BARRA QUE SE MUESTRA EN EL INDEX.
 
-}
-
-function Resultado(equipoLocal, resultadoLocal, idLocal, equipoVisita, resultadoVisita, idVisita){
-
-    this.equipoLocal        = equipoLocal;
-    this.resultadoLocal     = resultadoLocal;
-    this.equipoVisita       = equipoVisita;
-    this.resultadoVisita    = resultadoVisita;
-    this.idLocal            = idLocal;
-    this.idVisita           = idVisita;
-
-    var tabla = [];
-    var difGolLoc = resultadoLocal - resultadoVisita;
-    var difGolVis = resultadoVisita - resultadoLocal;
-    
-    this.calcularTabla = function(){
-
-        if(resultadoLocal > resultadoVisita){
-            tabla.push(idLocal, equipoLocal, 1, 1, 0, 0, resultadoLocal, resultadoVisita, difGolLoc, 3);
-            tabla.push(idVisita, equipoVisita, 1, 0, 0, 1, resultadoVisita, resultadoLocal, difGolVis, 0);
-        }else if(resultadoLocal < resultadoVisita){
-            tabla.push(idLocal, equipoLocal, 1, 0, 0, 1, resultadoLocal, resultadoVisita, difGolLoc, 0);
-            tabla.push(idVisita, equipoVisita, 1, 1, 0, 0, resultadoVisita, resultadoLocal, difGolVis, 3);
-        }else{
-            tabla.push(idLocal, equipoLocal, 1, 0, 1, 0, resultadoLocal, resultadoVisita, difGolLoc, 1);
-            tabla.push(idVisita, equipoVisita, 1, 0, 1, 0, resultadoVisita, resultadoLocal, difGolVis, 1);
-        }
-
-        return tabla;
-    }
-}
-
-var equipo = [];
-for(var i = 0; i < 4; i++){
-    var nombre = prompt("Ingrese el nombre del Equipo" + i);
-    equipo[i] = new Equipo (nombre, i);
-    //console.log(equipo[i]);
-}
-
-//variables de resultados
-var resEq1;
-var resEq2;
-var resEq3;
-var resEq4;
-
-alert("Ingrese el resultado del partido entre " + equipo[0].nombre + " vs " + equipo[1].nombre);
-
-
-resEq1 = parseInt(prompt("Goles marcados por " + equipo[0].nombre));
-resEq2 = parseInt(prompt("Goles marcados por " + equipo[1].nombre));
-
-alert("Ingrese el resultado del partido entre " + equipo[2].nombre + " vs " + equipo[3].nombre);
-
-resEq3 = parseInt(prompt("Goles marcados por " + equipo[2].nombre));
-resEq4 = parseInt(prompt("Goles marcados por " + equipo[3].nombre));
-
-    if(!Number.isNaN(resEq1) && !Number.isNaN(resEq2) && !Number.isNaN(resEq3) && !Number.isNaN(resEq4)){
-
-        var resultado1 = new Resultado(equipo[0].nombre, resEq1, equipo[0].id, equipo[1].nombre, resEq2, equipo[1].id);
-        var resultado2 = new Resultado(equipo[2].nombre, resEq3, equipo[2].id, equipo[3].nombre, resEq4, equipo[3].id);
-
-        var tabla = resultado1.calcularTabla().concat(resultado2.calcularTabla());
-
-        var imprimirTabla = "";
-
-        var e = 1;
-        var salidaAlert = "";
-
-        console.log(" | id |", "Equipo |", "PJ |", "PG |", "PE |", "PP |", "GF |", "GC |", "DIF |", "Puntos |")
-
-        for(var i = 0; i < tabla.length; i++){
-            
-            if(e == 1){
-                imprimirTabla = imprimirTabla + " | ";
-                imprimirTabla = imprimirTabla + tabla[i];
-                imprimirTabla = imprimirTabla + " | ";
-            }else if((e%10) == 0){
-                console.log(imprimirTabla);
-                salidaAlert = salidaAlert + imprimirTabla;
-                imprimirTabla = "";
-                imprimirTabla = imprimirTabla + tabla[i];
-                imprimirTabla = " | ";
-                
-            }else{
-                imprimirTabla = imprimirTabla + tabla[i];
-                imprimirTabla = imprimirTabla + " | ";
-            }
-            
-            e++;
-
-        }
-
-        alert(salidaAlert);
-
-    }else{
-
-        alert("Alguno de los resultados ingresados, no es correcto, recuerde ingresar solamente números.");
-        location.reload();
-
-    }
 */
+
+if (localStorage.getItem("equipos") !== null) {
+
+    cantidadEquipos = JSON.parse(localStorage.getItem("equipos")).length;
+    let equiposConNombre = 0;
+
+    for (let i = 0; i < cantidadEquipos; i++) {
+    
+        if(localStorage.getItem(`equipo${i}`) != 'null'){
+            equiposConNombre = equiposConNombre + 1;
+        }
+
+    }
+
+    $(document).ready(function() {
+        var percent = 0;
+        var hayDatos = Math.round((100/cantidadEquipos)*equiposConNombre);
+        //console.log(hayDatos)
+     
+        if(hayDatos <= 0){
+
+        }else{
+
+            timerId = setInterval(function() {
+                //increment progress bar
+                percent += 1;
+                $('.progress-bar').css('width', percent+'%');
+                $('.progress-bar').attr('aria-valuenow', percent);
+                $('.progress-bar').text(percent+'%');
+         
+                //complete
+                if(percent == hayDatos) {
+                    clearInterval(timerId);
+                    $('.information').show();
+                }
+         
+            }, 50);
+
+        }
+
+    });
+
+}

@@ -8,6 +8,8 @@ let partidos = (equipos * (equipos -1)) / 2;
 
 // Los proximos IF almacenan los partidos en el LocalStorage
 
+
+
 function crearFixture(equipos) {
 
     $.ajax({
@@ -48,7 +50,8 @@ function crearFixture(equipos) {
             }
         }
         
-    
+        
+
     }).fail( function(xhr, status, error) {    //xhr (request completa)        
         console.log(xhr);
         console.log(status);
@@ -56,6 +59,7 @@ function crearFixture(equipos) {
     })           
 
 }
+
 
 crearFixture(equipos)
 
@@ -142,9 +146,10 @@ for(let i = 1; i <= partidos; i++){
                             </tr>`);
     }
 
-    document.getElementById("fixture").innerHTML = imprimirPartido;
+
 
 }
+
 
 // Funcion que trae el nombre del equipo para que sea mostrado en la WEB, esta funcion es llamada cada ves que recorre el bucle for anterior
 function nombreEquipo(nombre){
@@ -165,6 +170,7 @@ function ingresoResultados(){
         $(idgolLocal).change(function (){
                 key = idgolLocal.replace("#", "");
                 localStorage.setItem(key,$(idgolLocal).val());
+                location.reload();
                 $(idgolLocal).prop('disabled', true);
         });
     });
@@ -173,9 +179,11 @@ function ingresoResultados(){
         $(idgolVisita).change(function (){
             key = idgolVisita.replace("#", "");
             localStorage.setItem(key,$(idgolVisita).val());
+            location.reload();
             $(idgolVisita).prop('disabled', true);
         });
     });
+    
 }
 
 function resultadosIngresados(){
@@ -203,3 +211,97 @@ function resultadosIngresados(){
     }
 
 }
+
+// Guardo el array en una cadena para imprimir todo junto en pantalla
+
+function imprimirFixture(){
+    
+    let salida = "";
+    for (let i = 0; i < imprimirPartido.length; i++) {
+        salida = salida + imprimirPartido[i];
+    }
+
+    if(localStorage.getItem("actualizaFixture") == 0){
+        //refrescar la web
+        localStorage.setItem("actualizaFixture","1");
+        location.reload();
+    }
+
+    return document.getElementById("fixture").innerHTML = salida;
+
+
+
+}
+
+
+imprimirFixture();
+
+
+
+/* PARA LA BARRA DE LOS PATIDOS JUGADOS EN FIXTURE */
+
+
+let partidosJugados = 0;
+for (let i = 1; i < partidos+1; i++) {
+    
+    if (localStorage.getItem(`golLocal${i}`) !== null && localStorage.getItem(`golVisita${i}`) !== null) {
+        localStorage.setItem(`partidoJugado${i}`,"1")
+    }
+
+    if (localStorage.getItem(`partidoJugado${i}`) == "1") {
+        partidosJugados = partidosJugados + 1;
+        
+    }
+    
+}
+
+
+if (localStorage.getItem("equipos") !== null) {
+
+    cantidadEquipos = JSON.parse(localStorage.getItem("equipos")).length;
+    let equiposConNombre = 0;
+
+    for (let i = 0; i < cantidadEquipos; i++) {
+    
+        if(localStorage.getItem(`equipo${i}`) != 'null'){
+            equiposConNombre = equiposConNombre + 1;
+        }
+
+    }
+
+    $(document).ready(function() {
+        var percent = 0;
+        var hayDatos = Math.round((100/partidos)*partidosJugados);
+        //console.log(hayDatos)
+     
+        if(hayDatos <= 0){
+
+        }else{
+
+            timerId = setInterval(function() {
+                //increment progress bar
+                percent += 1;
+                $('.progress-bar').css('width', percent+'%');
+                $('.progress-bar').attr('aria-valuenow', percent);
+                $('.progress-bar').text(percent+'%');
+         
+                //complete
+                if(percent == hayDatos) {
+                    clearInterval(timerId);
+                    $('.information').show();
+                }
+         
+            }, 1);
+
+        }
+
+    });
+
+}
+
+
+
+
+
+
+

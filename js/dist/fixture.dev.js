@@ -94,8 +94,6 @@ for (var i = 1; i <= partidos; i++) {
     cantPartidos++;
     imprimirPartido.push("<tr>\n                                <td>" + local + "</td>\n                                <td><input type=\"number\" name=\"" + golLocal + "\" id=\"" + golLocal + "\" class=\"form-control form-control-sm\" placeholder=\"" + golLocal + "\"></td>\n                                <td> - </td>\n                                <td><input type=\"number\" name=\"" + golVisita + "\" id=\"" + golVisita + "\" class=\"form-control form-control-sm\" placeholder=\"" + golVisita + "\"></td>\n                                <td>" + visita + "</td>\n                            </tr>");
   }
-
-  document.getElementById("fixture").innerHTML = imprimirPartido;
 } // Funcion que trae el nombre del equipo para que sea mostrado en la WEB, esta funcion es llamada cada ves que recorre el bucle for anterior
 
 
@@ -115,6 +113,7 @@ function ingresoResultados() {
     $(idgolLocal).change(function () {
       key = idgolLocal.replace("#", "");
       localStorage.setItem(key, $(idgolLocal).val());
+      location.reload();
       $(idgolLocal).prop('disabled', true);
     });
   });
@@ -122,6 +121,7 @@ function ingresoResultados() {
     $(idgolVisita).change(function () {
       key = idgolVisita.replace("#", "");
       localStorage.setItem(key, $(idgolVisita).val());
+      location.reload();
       $(idgolVisita).prop('disabled', true);
     });
   });
@@ -148,4 +148,67 @@ function resultadosIngresados() {
       $(idgolVisita).val(localStorage.getItem(key));
     });
   }
+} // Guardo el array en una cadena para imprimir todo junto en pantalla
+
+
+function imprimirFixture() {
+  var salida = "";
+
+  for (var _i4 = 0; _i4 < imprimirPartido.length; _i4++) {
+    salida = salida + imprimirPartido[_i4];
+  }
+
+  if (localStorage.getItem("actualizaFixture") == 0) {
+    //refrescar la web
+    localStorage.setItem("actualizaFixture", "1");
+    location.reload();
+  }
+
+  return document.getElementById("fixture").innerHTML = salida;
+}
+
+imprimirFixture();
+/* PARA LA BARRA DE LOS PATIDOS JUGADOS EN FIXTURE */
+
+var partidosJugados = 0;
+
+for (var _i5 = 1; _i5 < partidos + 1; _i5++) {
+  if (localStorage.getItem("golLocal".concat(_i5)) !== null && localStorage.getItem("golVisita".concat(_i5)) !== null) {
+    localStorage.setItem("partidoJugado".concat(_i5), "1");
+  }
+
+  if (localStorage.getItem("partidoJugado".concat(_i5)) == "1") {
+    partidosJugados = partidosJugados + 1;
+  }
+}
+
+if (localStorage.getItem("equipos") !== null) {
+  cantidadEquipos = JSON.parse(localStorage.getItem("equipos")).length;
+  var equiposConNombre = 0;
+
+  for (var _i6 = 0; _i6 < cantidadEquipos; _i6++) {
+    if (localStorage.getItem("equipo".concat(_i6)) != 'null') {
+      equiposConNombre = equiposConNombre + 1;
+    }
+  }
+
+  $(document).ready(function () {
+    var percent = 0;
+    var hayDatos = Math.round(100 / partidos * partidosJugados); //console.log(hayDatos)
+
+    if (hayDatos <= 0) {} else {
+      timerId = setInterval(function () {
+        //increment progress bar
+        percent += 1;
+        $('.progress-bar').css('width', percent + '%');
+        $('.progress-bar').attr('aria-valuenow', percent);
+        $('.progress-bar').text(percent + '%'); //complete
+
+        if (percent == hayDatos) {
+          clearInterval(timerId);
+          $('.information').show();
+        }
+      }, 1);
+    }
+  });
 }

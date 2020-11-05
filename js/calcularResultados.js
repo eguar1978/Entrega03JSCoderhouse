@@ -18,7 +18,7 @@ for(let i = 0; i < JSON.parse(localStorage.getItem('equipos')).length; i++){
         
         objetoEquipo = JSON.parse(localStorage.getItem(`tablaEquipos${i}`));
 
-        //objetoEquipo.equipo     = nombre_equipo;
+        objetoEquipo.nombre     = nombre_equipo;
         objetoEquipo.pj         = 0;
         objetoEquipo.pg         = 0;
         objetoEquipo.pe         = 0;
@@ -40,8 +40,8 @@ for (let i = 1; i <= partidos+1; i++) {
     let localExiste = 0;
     let visitaExiste = 0;
 
-    if(localStorage.getItem(partidoJugado) == 1){
-        console.log(partidoJugado);
+    if(localStorage.getItem(partidoJugado) == 2){
+        //console.log(partidoJugado);
     }else{
 
         if(localStorage.getItem(golLocal) !== null){
@@ -58,8 +58,8 @@ for (let i = 1; i <= partidos+1; i++) {
 
             if(local > visita){
 
-                compruebaTabla(compruebaTabla(nombreEquipo(localStorage.getItem("p"+i+"loc")),1,1,0,0,local,visita,(local - visita),3));
-                compruebaTabla(compruebaTabla(nombreEquipo(localStorage.getItem("p"+i+"vis")),1,0,0,1,visita,local,(visita - local),0));
+                compruebaTabla(nombreEquipo(localStorage.getItem("p"+i+"loc")),1,1,0,0,local,visita,(local - visita),3);
+                compruebaTabla(nombreEquipo(localStorage.getItem("p"+i+"vis")),1,0,0,1,visita,local,(visita - local),0);
 
                     //localStorage.setItem(partidoJugado,"1");
             }
@@ -104,13 +104,13 @@ function compruebaTabla(equipo, pj, pg, pe, pp, gf, gc, dif, puntos){
 
                 objetoEquipo.nombre     = nombre_equipo;
                 objetoEquipo.pj         = objetoEquipo.pj + parseInt(pj);
-                objetoEquipo.pg         = objetoEquipo.pj + parseInt(pg);
-                objetoEquipo.pe         = objetoEquipo.pj + parseInt(pe);
-                objetoEquipo.pp         = objetoEquipo.pj + parseInt(pp);
-                objetoEquipo.gf         = objetoEquipo.pj + parseInt(gf);
-                objetoEquipo.gc         = objetoEquipo.pj + parseInt(gc);
-                objetoEquipo.dif        = objetoEquipo.pj + parseInt(dif);
-                objetoEquipo.puntos     = objetoEquipo.pj + parseInt(puntos);
+                objetoEquipo.pg         = objetoEquipo.pg + parseInt(pg);
+                objetoEquipo.pe         = objetoEquipo.pe + parseInt(pe);
+                objetoEquipo.pp         = objetoEquipo.pp + parseInt(pp);
+                objetoEquipo.gf         = objetoEquipo.gf + parseInt(gf);
+                objetoEquipo.gc         = objetoEquipo.gc + parseInt(gc);
+                objetoEquipo.dif        = objetoEquipo.dif + parseInt(dif);
+                objetoEquipo.puntos     = objetoEquipo.puntos + parseInt(puntos);
 
                 localStorage.setItem(`tablaEquipos${i}`, JSON.stringify(objetoEquipo));
 
@@ -120,29 +120,20 @@ function compruebaTabla(equipo, pj, pg, pe, pp, gf, gc, dif, puntos){
         }
 
 }
-
+var data = new Array;
 for(let i = 0; i < JSON.parse(localStorage.getItem('equipos')).length; i++){
 
     if(i == 0){
-        var data = localStorage.getItem(`tablaEquipos${i}`);
+        data.push(JSON.parse(localStorage.getItem(`tablaEquipos${i}`)));
         //console.log(data)
     }else{
-        data = data + "," + localStorage.getItem(`tablaEquipos${i}`);
+        data.push(JSON.parse(localStorage.getItem(`tablaEquipos${i}`)));
+        //console.log(data)
     }
 
 }
 
-data = '[' + data + ']';
-
-console.log(data);
-
-/*
-
-Esta salida  que esta abajo comentada es la salida del console.log, si la copio y la pego en la variable data la tabla se ejecuta OK,
-pero si la ejecuto despues que recorro el for si bien la salida es la misma, me tira un error
-
-//data = [{"equipo":"equipo0","pj":2,"pg":2,"pe":3,"pp":2,"gf":3,"gc":3,"dif":2,"puntos":3,"nombre":"111"},{"equipo":"equipo1","pj":2,"pg":2,"pe":2,"pp":3,"gf":3,"gc":5,"dif":0,"puntos":2,"nombre":"333"},{"equipo":"equipo2","pj":2,"pg":3,"pe":2,"pp":2,"gf":5,"gc":3,"dif":4,"puntos":5,"nombre":"GFG"},{"equipo":"equipo3","pj":2,"pg":3,"pe":2,"pp":2,"gf":5,"gc":4,"dif":3,"puntos":5,"nombre":"FGFG"},{"equipo":"equipo4","pj":2,"pg":2,"pe":3,"pp":2,"gf":3,"gc":3,"dif":2,"puntos":3,"nombre":"DDDDDDD"},{"equipo":"equipo5","pj":2,"pg":2,"pe":2,"pp":3,"gf":4,"gc":5,"dif":1,"puntos":2,"nombre":"FDDFG"}]
-*/
+console.table(data);
 
 $('#table_id').DataTable( {
     "searching": false,

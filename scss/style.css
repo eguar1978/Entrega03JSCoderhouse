@@ -9,4 +9,38 @@ nav {
 .tituloTabla {
   font-size: 1.5em;
 }
+
+@-webkit-keyframes rotate360 {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate360 {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.girar {
+  -webkit-animation: 2s rotate360 infinite linear;
+          animation: 2s rotate360 infinite linear;
+}
+
+.base {
+  background-color: #f5f3f0;
+  background-blend-mode: multiply;
+}
+
+.red {
+  background-color: #d64242;
+  background-blend-mode: multiply;
+}
+
+.green {
+  background-color: #1aaa32;
+  background-blend-mode: multiply;
+}
 /*# sourceMappingURL=style.css.map */

@@ -9,3 +9,27 @@ nav {
 .tituloTabla {
   font-size: 1.5em;
 }
+
+@keyframes rotate360 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.girar {
+  animation: 2s rotate360 infinite linear;
+}
+
+.base {
+  background-color: #f5f3f0;
+  background-blend-mode: multiply;
+}
+
+.red {
+  background-color: #d64242;
+  background-blend-mode: multiply;
+}
+
+.green {
+  background-color: #1aaa32;
+  background-blend-mode: multiply;
+}
