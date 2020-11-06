@@ -133,66 +133,181 @@ for(let i = 0; i < JSON.parse(localStorage.getItem('equipos')).length; i++){
 
 }
 
+// Quita el Style que agrega automaticamente Datatables asi queda responsivo, el Style le configuraba un ancho fijo y rompia el responsive
+
 $(window).resize(function(){
 
-        $("#table_id").removeAttr("style");
+    if($(window).width() < 1200){
+        $("#tabla_completa").removeAttr("style");
+        $("#tabla_mediana").removeAttr("style");
+        $("#tabla_basica").removeAttr("style");
+    }
+
+    if($(window).width() < 690){
+        $('#tabla_completa').hide();
+    }else{
+        $('#tabla_completa').show();
+    }
+
+    if($(window).width() > 491 && $(window).width() < 690){
+        $('#tabla_mediana').show();
+    }else{
+        $('#tabla_mediana').hide();
+    }
+
+    if($(window).width() > 491){
+        $('#tabla_basica').hide();
+    }else{
+        $('#tabla_basica').show();
+    }
+
 
 });
 
+$(document).ready(function(){
 
-        $('#table_id').DataTable( {
-            "searching": false,
-            "lengthChange": false,
-            "paging": false,
-            "buttons": [],
-            "data": data,
-            "bInfo": false,
-            "columns": [
-                { data: "nombre" },
-                { data: "pj" },
-                { data: "pg" },
-                { data: "pe" },
-                { data: "pp" },
-                { data: "gf" },
-                { data: "gc" },
-                { data: "dif" },
-                { data: "puntos" }
-            ],
+    if($(window).width() < 1200){
+        $("#tabla_completa").removeAttr("style");
+        $("#tabla_mediana").removeAttr("style");
+        $("#tabla_basica").removeAttr("style");
+    }
 
-            "order": [
-                [ 8, 'desc' ],
-                [ 7, 'desc' ],
-                [ 5, 'desc' ],
-                [ 0, 'asc' ]
-            ],
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
-             ]
-        } );
+    if($(window).width() < 690){
+        $('#tabla_completa').hide();
+    }else{
+        $('#tabla_completa').show();
+    }
 
-        /*
-        
-                    "columnDefs": [
-                {
-                    "targets": [ 2 ],
-                    "visible": false,
-                },
-                {
-                    "targets": [ 3 ],
-                    "visible": false
-                },
-                {
-                    "targets": [ 4 ],
-                    "visible": false,
-                },
-                {
-                    "targets": [ 5 ],
-                    "visible": false
-                },
-                {
-                    "targets": [ 6 ],
-                    "visible": false
-                }
-            ],
+    if($(window).width() > 491 && $(window).width() < 690){
+        $('#tabla_mediana').show();
+    }else{
+        $('#tabla_mediana').hide();
+    }
 
-        */
+    if($(window).width() > 491){
+        $('#tabla_basica').hide();
+    }else{
+        $('#tabla_basica').show();
+    }
+});
+
+// Segun el ancho del navegador, es el contenido que muestra la tabla.
+
+$('#tabla_completa').DataTable( {
+    "searching": false,
+    "lengthChange": false,
+    "paging": false,
+    "buttons": [],
+    "data": data,
+    "bInfo": false,
+    "columns": [
+        { data: "nombre" },
+        { data: "pj" },
+        { data: "pg" },
+        { data: "pe" },
+        { data: "pp" },
+        { data: "gf" },
+        { data: "gc" },
+        { data: "dif" },
+        { data: "puntos" }
+    ],
+    "order": [
+        [ 8, 'desc' ],
+        [ 7, 'desc' ],
+        [ 5, 'desc' ],
+        [ 0, 'asc' ]
+    ],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
+    ]
+} );
+
+$('#tabla_mediana').DataTable( {
+    "searching": false,
+    "lengthChange": false,
+    "paging": false,
+    "buttons": [],
+    "data": data,
+    "bInfo": false,
+    "columns": [
+        { data: "nombre" },
+        { data: "pj" },
+        { data: "pg" },
+        { data: "pe" },
+        { data: "pp" },
+        { data: "gf" },
+        { data: "gc" },
+        { data: "dif" },
+        { data: "puntos" }
+    ],
+        "columnDefs": [
+            {
+                "targets": [ 5 ],
+                "visible": false
+            },
+            {
+                "targets": [ 6 ],
+                "visible": false
+            }
+        ],
+    "order": [
+        [ 8, 'desc' ],
+        [ 7, 'desc' ],
+        [ 5, 'desc' ],
+        [ 0, 'asc' ]
+    ],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
+    ]
+} );
+
+$('#tabla_basica').DataTable( {
+    "searching": false,
+    "lengthChange": false,
+    "paging": false,
+    "buttons": [],
+    "data": data,
+    "bInfo": false,
+    "columns": [
+        { data: "nombre" },
+        { data: "pj" },
+        { data: "pg" },
+        { data: "pe" },
+        { data: "pp" },
+        { data: "gf" },
+        { data: "gc" },
+        { data: "dif" },
+        { data: "puntos" }
+    ],
+    "columnDefs": [
+        {
+            "targets": [ 2 ],
+            "visible": false,
+        },
+        {
+            "targets": [ 3 ],
+            "visible": false
+        },
+        {
+            "targets": [ 4 ],
+            "visible": false,
+        },
+        {
+            "targets": [ 5 ],
+            "visible": false
+        },
+        {
+            "targets": [ 6 ],
+            "visible": false
+        }
+    ],
+    "order": [
+        [ 8, 'desc' ],
+        [ 7, 'desc' ],
+        [ 5, 'desc' ],
+        [ 0, 'asc' ]
+    ],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [ 8,7,6,5,4,3,2,1,0 ] }
+    ]
+} );
