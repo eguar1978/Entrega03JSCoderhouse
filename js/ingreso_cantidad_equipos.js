@@ -261,10 +261,12 @@ if (localStorage.getItem("equipos") !== null) {
                     $('.information').show();
                 }
          
-            }, 50);
+            }, 1);
 
         }
 
     });
+
+    $('#tabla_mediana').hide();
 
 }

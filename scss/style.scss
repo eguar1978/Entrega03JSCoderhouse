@@ -18,6 +18,7 @@ nav{
 
 .girar { 
     animation: 2s rotate360 infinite linear;
+    width: 40px;
 }
 
 .base { 
@@ -25,12 +26,7 @@ nav{
     background-blend-mode: multiply; 
 }
 
-.red { 
-    background-color: rgb(214, 66, 66); 
-    background-blend-mode: multiply; 
-}
-
-.green { 
+.verde { 
     background-color: rgb(26, 170, 50); 
     background-blend-mode: multiply; 
 } 

@@ -13,27 +13,30 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand/logo -->
-        <a class="navbar-brand" href="#">
-          <img src="images/ff.png" class="girar base" alt="logo" id="pelota" style="width:40px;">
-        </a>
-        
-        <!-- Links -->
+      <a class="navbar-brand" href="#">
+        <img src="images/pelota.png" id="pelota" class="girar base">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="index.html">Equipos</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="fechasJugar" >
             <a class="nav-link" href="fixture.html">Fixture</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="posiciones" >
             <a class="nav-link" href="posiciones.html">Posiciones</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="reset.html">Reset</a>
           </li>
         </ul>
-      </nav>
+      </div>
+    </nav>
       <br>
       <div class="container">
         <h3>Seleccione la cantidad equipos para el campeonato y luego ingrese los nombres</h3>
@@ -66,7 +69,7 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css"/>
-
+    <script src="js/validaNavMostrar.js"></script>
 
     <script src="js/ingreso_cantidad_equipos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

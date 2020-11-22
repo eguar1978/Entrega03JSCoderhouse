@@ -238,7 +238,7 @@ imprimirFixture();
 
 
 
-/* PARA LA BARRA DE LOS PATIDOS JUGADOS EN FIXTURE */
+/* PARA LA BARRA DE % DE LOS PATIDOS JUGADOS EN FIXTURE */
 
 
 let partidosJugados = 0;
@@ -298,10 +298,3 @@ if (localStorage.getItem("equipos") !== null) {
     });
 
 }
-
-
-
-
-
-
-

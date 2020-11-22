@@ -168,7 +168,7 @@ function imprimirFixture() {
 }
 
 imprimirFixture();
-/* PARA LA BARRA DE LOS PATIDOS JUGADOS EN FIXTURE */
+/* PARA LA BARRA DE % DE LOS PATIDOS JUGADOS EN FIXTURE */
 
 var partidosJugados = 0;
 

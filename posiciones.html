@@ -16,7 +16,9 @@
   <body>
     
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">
+        <img src="images/pelota.png" id="pelota" class="girar base">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,10 +28,10 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Equipos</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="fechasJugar" >
             <a class="nav-link" href="fixture.html">Fixture</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="posiciones" >
             <a class="nav-link" href="posiciones.html">Posiciones</a>
           </li>
           <li class="nav-item">
@@ -106,8 +108,9 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="js/notify.js"></script>
+    
     <script src="js/calcularResultados.js"></script>
+    <script src="js/validaNavMostrar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>

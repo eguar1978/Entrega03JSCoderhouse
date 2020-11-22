@@ -11,12 +11,14 @@ if (localStorage.getItem("equipos") !== null) {
 
   if (equiposConNombre == JSON.parse(localStorage.getItem("equipos")).length) {
     $('#posiciones').show();
-    $('#fixture').show();
+    $('#fechasJugar').show();
+    $('#pelota').removeClass('base');
+    $('#pelota').addClass('verde');
   } else {
     $('#posiciones').hide();
-    $('#fixture').hide();
+    $('#fechasJugar').hide();
   }
 } else {
   $('#posiciones').hide();
-  $('#fixture').hide();
+  $('#fechasJugar').hide();
 }
